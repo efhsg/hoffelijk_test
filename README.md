@@ -17,4 +17,18 @@ Files are stored in ./public/upload
 
 Took about an hour. More than expected, due to not having worked with Laravel for a year or 2.
 
+- Parse excel sheet
+Used [cyber-duck](https://packagist.org/packages/cyber-duck/laravel-excel) to parse the Excel sheet
+The actual parsing is done in the namespace Domain. A new instance gets created in the controller. In a more complex domain an interface with dependency injection would be better.
+
+TODO: validation, error handling, unit tests.
+
 ## Calculations
+
+All calculations are done in Domain/Exam.php
+Took more time than expected by lack of practice.
+
+TODO: unit tests.
+
+## Analytics
+Not implemented.

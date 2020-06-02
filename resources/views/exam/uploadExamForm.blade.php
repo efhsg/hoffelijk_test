@@ -20,24 +20,10 @@
             margin: 0;
         }
 
-        .full-height {
-            height: 100vh;
-        }
-
         .flex-center {
             align-items: center;
             display: flex;
             justify-content: center;
-        }
-
-        .position-ref {
-            position: relative;
-        }
-
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
         }
 
         .content {
@@ -68,7 +54,14 @@
 
         .error {
             color: red;
+        }
 
+        .right {
+            text-align: right;
+        }
+
+        .left {
+            text-align: left;
         }
 
     </style>
@@ -84,9 +77,6 @@
             <div class="error">{{ $error }}</div>
         @endforeach
     @endif
-    @if(session('success'))
-        {{ session('success') }}
-    @endif
 
     <div class="form">
         <form action="{{ url('/exam/upload') }}" method="post" enctype="multipart/form-data">
@@ -100,6 +90,26 @@
             </div>
         </form>
     </div>
+
+    @if(session('studentResults'))
+        <table class="flex-center">
+            <tr>
+                <th class="left">Student</th>
+                <th class="right">Points</th>
+                <th class="right">Grade</th>
+                <th class="left">Passed</th>
+            </tr>
+            @foreach(session('studentResults') as $student => $studentResult)
+                <tr>
+                    <td class="left">{{ $student }}</td>
+                    <td class="right">{{ $studentResult['points'] }}</td>
+                    <td class="right">{{ $studentResult['grade'] }}</td>
+                    <td class="left">{{ $studentResult['passed'] ? 'Yes' : 'No'}}</td>
+                </tr>
+            @endforeach
+        </table>
+    @endif
+
 </div>
 </body>
 </html>

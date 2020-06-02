@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Exam;
 
+use App\Domain\Exam;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Importer;
 
 class ExamController extends Controller
 {
@@ -31,11 +33,16 @@ class ExamController extends Controller
         ]);
         if ($validator->passes()) {
 
-
             $file = $request->file('file');
-            $file->move(public_path('/upload'), date('Ymd_His') . '_' . $file->getClientOriginalName());
+            $savePath = public_path('/upload/');
+            $fileName = date('Ymd_His') . '_' . $file->getClientOriginalName();
+            $file->move($savePath, $fileName);
 
-            return redirect()->back()->with(['success' => 'Upload ok']);
+            $results = (new Exam($savePath . $fileName))->getResults();
+
+            return redirect()->back()->with([
+                'studentResults' => $results['studentResults']
+            ]);
 
         } else {
             return redirect()->back()->with(['errors' => $validator->errors()->all()]);
