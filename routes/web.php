@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/exam/upload', 'Exam\ExamController@uploadExamForm');
+Route::post('exam/upload', 'Exam\ExamController@uploadExam');
